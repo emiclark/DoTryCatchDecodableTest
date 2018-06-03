@@ -17,14 +17,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ApiClient.getAddressCoordinates(completion:  { (coordinateInfo) in
+        ApiClient.getCoordinateData { (coordinates) in
             
+            // update UI on main thread
             DispatchQueue.main.async {
-                self.lat.text = "Latitude: \(String(describing: coordinateInfo.lat))"
-                self.long.text = "Longitude: \(String(describing: coordinateInfo.long))"
-                self.address.text = "Address: \(coordinateInfo.address)"
+                self.lat.text = String(coordinates.lat)
+                self.long.text = String(coordinates.long)
+                self.address.text = coordinates.address
             }
-        })
+        }
+        
     }
 }
-
